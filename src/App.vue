@@ -38,6 +38,11 @@ header {
   color: #ffffff;
 }
 
+.editor, .content{
+  max-height: calc(100vh - 56px);
+  overflow-y: auto;
+}
+
 .center{
   text-align: center;
 }
