@@ -26,6 +26,20 @@ const state = {
       units: 'em',
     },
   ],
+  colGap: {
+    size: 0,
+    units: '',
+  },
+  rowGap: {
+    size: 0,
+    units: '',
+  },
+  justify: {
+    value: '',
+  },
+  align: {
+    value: '',
+  },
 }
 
 // A Vuex instance is created by combining the state, mutations, actions,

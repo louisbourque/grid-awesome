@@ -21,8 +21,8 @@
         <button class="input__button input__button--remove" v-if='columns.length > 1' @click="removeColumn(column)">X</button>
       </div>
       <button class="input__button input__button--add" @click="addColumn">Add Column</button>Remove Column</button>
-      </div>
-      <div class="input">
+    </div>
+    <div class="input">
       <p class="center">Grid Template Rows: {{rows.length}}</p>
       <div v-for="row, index in rows">
         Row {{index+1}} 
@@ -41,6 +41,46 @@
       <button class="input__button input__button--add" @click="addRow">Add Row</button>
       
     </div>
+    <div class="input">
+      <p class="center">Grid Column Gap</p>
+      <input v-model="colGap.size" class="input__input--size" type="number" name="size" size="5">
+        <select v-model="colGap.units">
+          <option val="%">%</option>
+          <option val="em">em</option>
+          <option val="rem">rem</option>
+          <option val="px">px</option>
+        </select>
+    </div>
+    <div class="input">
+      <p class="center">Grid Row Gap</p>
+      <input v-model="rowGap.size" class="input__input--size" type="number" name="size" size="5">
+        <select v-model="rowGap.units">
+          <option val="%">%</option>
+          <option val="em">em</option>
+          <option val="rem">rem</option>
+          <option val="px">px</option>
+        </select>
+    </div>
+    <div class="input">
+      <p class="center">Justify Items</p>
+        <select v-model="justify.value">
+          <option val=""></option>
+          <option val="stretch">stretch</option>
+          <option val="center">center</option>
+          <option val="start">start</option>
+          <option val="end">end</option>
+        </select>
+    </div>
+    <div class="input">
+      <p class="center">Align Items</p>
+        <select v-model="align.value">
+          <option val=""></option>
+          <option val="stretch">stretch</option>
+          <option val="center">center</option>
+          <option val="start">start</option>
+          <option val="end">end</option>
+        </select>
+    </div>
     <div class="css-output">
     <button class="input__button button--clipboard" @click="copyTextToClipboard(css)">Copy to Clipboard</button>
       CSS: 
@@ -57,7 +97,7 @@ export default {
   name: 'editor',
   computed: {
     ...mapGetters([
-      'areas', 'rows', 'columns', 'css'
+      'areas', 'rows', 'columns', 'css', 'colGap', 'rowGap', 'justify', 'align'
     ]),
   },
   methods: {
