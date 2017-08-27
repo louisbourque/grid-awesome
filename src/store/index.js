@@ -9,7 +9,23 @@ Vue.use(Vuex)
 // root state object.
 // each Vuex instance is just a single state tree.
 const state = {
-  val: false,
+  areas: [
+    { x: 0, y: 0, w: 2, h: 2, label: 'area1' },
+    { x: 2, y: 0, w: 2, h: 4, label: 'area2' },
+    { x: 4, y: 0, w: 2, h: 5, label: 'area3' },
+  ],
+  columns: [
+    {
+      size: 10,
+      units: 'em',
+    },
+  ],
+  rows: [
+    {
+      size: 10,
+      units: 'em',
+    },
+  ],
 }
 
 // A Vuex instance is created by combining the state, mutations, actions,

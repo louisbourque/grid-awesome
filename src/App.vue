@@ -1,6 +1,7 @@
 <template>
   <div id="app" class="site">
     <app-header></app-header>
+    <editor></editor>
     <main class="content">
       <router-view></router-view>
     </main>
@@ -9,10 +10,11 @@
 
 <script>
 import AppHeader from '@/components/Header'
+import Editor from '@/components/Editor'
 
 export default {
   name: 'app',
-  components: {AppHeader},
+  components: {AppHeader, Editor},
 }
 </script>
 
@@ -25,7 +27,7 @@ body {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: #000;
 }
 
 header {
@@ -45,10 +47,15 @@ header {
     .site {
       display: grid;
       grid-template-rows: auto auto auto;
+      grid-template-columns: 15rem auto;
       grid-template-areas:
-        "header"
-        "content"
-        "footer";
+        "header header"
+        "editor content"
+        "footer footer";
+    }
+    
+    .editor {
+      grid-area: editor;
     }
     
     .header {
