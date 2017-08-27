@@ -30,3 +30,21 @@ export const itemStyle = state => item => {
     backgroundColor: utils.stringToRGBA(item.label),
   }
 }
+
+export const css = state => {
+  return `
+.grid-container{
+  display: grid;
+  grid-template-columns: ${state.columns.reduce(
+    (acc, val) => acc + val.size + val.units + ' ',
+    ''
+  )};
+  grid-template-rows: ${state.rows.reduce(
+    (acc, val) => acc + val.size + val.units + ' ',
+    ''
+  )};
+
+}
+
+  `
+}

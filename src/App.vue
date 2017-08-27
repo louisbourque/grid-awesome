@@ -47,7 +47,7 @@ header {
     .site {
       display: grid;
       grid-template-rows: auto auto auto;
-      grid-template-columns: 15rem auto;
+      grid-template-columns: 20rem auto;
       grid-template-areas:
         "header header"
         "editor content"
