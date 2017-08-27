@@ -15,11 +15,13 @@ export const gridStyle = state => {
   return {
     display: 'grid',
     gridTemplateRows: state.rows.reduce(
-      (acc, val) => acc + val.size + val.units + ' ',
+      (acc, val) =>
+        acc + (val.units === 'auto' ? '' : val.size) + val.units + ' ',
       ''
     ),
     gridTemplateColumns: state.columns.reduce(
-      (acc, val) => acc + val.size + val.units + ' ',
+      (acc, val) =>
+        acc + (val.units === 'auto' ? '' : val.size) + val.units + ' ',
       ''
     ),
   }
@@ -36,11 +38,13 @@ export const css = state => {
 .grid-container{
   display: grid;
   grid-template-columns: ${state.columns.reduce(
-    (acc, val) => acc + val.size + val.units + ' ',
+    (acc, val) =>
+      acc + (val.units === 'auto' ? '' : val.size) + val.units + ' ',
     ''
   )};
   grid-template-rows: ${state.rows.reduce(
-    (acc, val) => acc + val.size + val.units + ' ',
+    (acc, val) =>
+      acc + (val.units === 'auto' ? '' : val.size) + val.units + ' ',
     ''
   )};
 
