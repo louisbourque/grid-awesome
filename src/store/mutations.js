@@ -42,7 +42,7 @@ export const addColumn = state => {
 
 export const removeColumn = (state, col) => {
   if (col) {
-    let existingColIndex = state.rowcolumnss.findIndex(c => c === col)
+    let existingColIndex = state.columns.findIndex(c => c === col)
     if (existingColIndex >= 0) {
       state.columns.splice(existingColIndex, 1)
     }
