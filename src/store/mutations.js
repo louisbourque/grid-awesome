@@ -16,10 +16,7 @@ export const addArea = (state, value) => {
   state.areas.push(item)
 }
 export const addRow = state => {
-  state.rows.push({
-    size: 10,
-    units: 'em',
-  })
+  state.rows.push(Object.assign({}, state.rows[state.rows.length - 1]))
 }
 
 export const removeRow = (state, row) => {
@@ -34,10 +31,7 @@ export const removeRow = (state, row) => {
 }
 
 export const addColumn = state => {
-  state.columns.push({
-    size: 10,
-    units: 'em',
-  })
+  state.columns.push(Object.assign({}, state.columns[state.columns.length - 1]))
 }
 
 export const removeColumn = (state, col) => {
