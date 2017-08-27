@@ -7,8 +7,8 @@ export const action = ({ commit, state }, payload) => {
   }
 }
 
-export const addItem = ({ commit, state }) => {
-  commit('addItem')
+export const addArea = ({ commit, state }) => {
+  commit('addArea')
 }
 
 export const addRow = ({ commit, state }) => {

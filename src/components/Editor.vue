@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'addItem', 'addRow', 'removeRow', 'addColumn', 'removeColumn'
+      'addArea', 'addRow', 'removeRow', 'addColumn', 'removeColumn'
     ]),
   },
 }

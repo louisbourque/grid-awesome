@@ -7,7 +7,7 @@ export const mutation = (state, value) => {
   state.val = value
 }
 
-export const addItem = (state, value) => {
+export const addArea = (state, value) => {
   let index = state.areas.length + 1
   while (state.areas.find(a => a.label === 'area' + index)) {
     index++
