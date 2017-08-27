@@ -5,6 +5,24 @@
       <button class="input__button input__button--add" @click="addArea">Add an area</button>
     </div>
     <div class="input">
+      <p class="center">Grid Template Columns: {{columns.length}}</p>
+      <div v-for="column, index in columns">
+        Column {{index+1}} 
+        <input v-model="column.size" class="input__input--size" type="number" name="size" size="5" :disabled="column.units === 'auto'">
+        <select v-model="column.units">
+          <option val="auto">auto</option>
+          <option val="%">%</option>
+          <option val="em">em</option>
+          <option val="rem">rem</option>
+          <option val="fr">fr</option>
+          <option val="px">px</option>
+          <option val="vw">vw</option>
+        </select>
+        <button class="input__button input__button--remove" v-if='columns.length > 1' @click="removeColumn(column)">X</button>
+      </div>
+      <button class="input__button input__button--add" @click="addColumn">Add Column</button>Remove Column</button>
+      </div>
+      <div class="input">
       <p class="center">Grid Template Rows: {{rows.length}}</p>
       <div v-for="row, index in rows">
         Row {{index+1}} 
@@ -23,25 +41,6 @@
       <button class="input__button input__button--add" @click="addRow">Add Row</button>
       
     </div>
-    <div class="input">
-      <p class="center">Grid Template Columns: {{columns.length}}</p>
-      <div v-for="column, index in columns">
-        Column {{index+1}} 
-        <input v-model="column.size" class="input__input--size" type="number" name="size" size="5" :disabled="column.units === 'auto'">
-        <select v-model="column.units">
-          <option val="auto">auto</option>
-          <option val="%">%</option>
-          <option val="em">em</option>
-          <option val="rem">rem</option>
-          <option val="fr">fr</option>
-          <option val="px">px</option>
-          <option val="vw">vw</option>
-        </select>
-        <button class="input__button input__button--remove" v-if='columns.length > 1' @click="removeColumn(column)">X</button>
-      </div>
-      <button class="input__button input__button--add" @click="addColumn">Add Column</button>Remove Column</button>
-    </div>
-
     <div class="css-output">
     <button class="input__button button--clipboard" @click="copyTextToClipboard(css)">Copy to Clipboard</button>
       CSS: 
