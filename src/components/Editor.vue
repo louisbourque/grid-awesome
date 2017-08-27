@@ -16,7 +16,7 @@
     </div>
 
     <div class="css-output">
-    <button class="input__button button--clipboard">Copy to Clipboard</button>
+    <button class="input__button button--clipboard" @click="copyTextToClipboard(css)">Copy to Clipboard</button>
       CSS: 
       {{css}}
     </div>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import {copyTextToClipboard} from '../utils'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -37,6 +38,9 @@ export default {
     ...mapActions([
       'addArea', 'addRow', 'removeRow', 'addColumn', 'removeColumn'
     ]),
+    copyTextToClipboard: function(text) {
+      copyTextToClipboard(text)
+    }
   },
 }
 </script>
