@@ -1,18 +1,45 @@
 <template>
 	<div class="editor">
     <div class="input">
-      <p>Grid Template Areas: {{areas.length}}</p>
+      <p class="center">Grid Template Areas: {{areas.length}}</p>
       <button class="input__button input__button--add" @click="addArea">Add an area</button>
     </div>
     <div class="input">
-      <p>Grid Template Rows: {{rows.length}}</p>
+      <p class="center">Grid Template Rows: {{rows.length}}</p>
+      <div v-for="row, index in rows">
+        Row {{index+1}} 
+        <input v-model="row.size" class="input__input--size" type="number" name="size" size="5" :disabled="row.units === 'auto'">
+        <select v-model="row.units">
+          <option val="auto">auto</option>
+          <option val="%">%</option>
+          <option val="em">em</option>
+          <option val="rem">rem</option>
+          <option val="fr">fr</option>
+          <option val="px">px</option>
+          <option val="vh">vh</option>
+        </select>
+        <button class="input__button input__button--remove" v-if='rows.length > 1' @click="removeRow(row)">X</button>
+      </div>
       <button class="input__button input__button--add" @click="addRow">Add Row</button>
-      <button class="input__button input__button--remove" v-if='rows.length > 1' @click="removeRow()">Remove Row</button>
+      
     </div>
     <div class="input">
-      <p>Grid Template Columns: {{columns.length}}</p>
-      <button class="input__button input__button--add" @click="addColumn">Add Column</button>
-      <button class="input__button input__button--remove" v-if='columns.length > 1' @click="removeColumn()">Remove Column</button>
+      <p class="center">Grid Template Columns: {{columns.length}}</p>
+      <div v-for="column, index in columns">
+        Column {{index+1}} 
+        <input v-model="column.size" class="input__input--size" type="number" name="size" size="5" :disabled="column.units === 'auto'">
+        <select v-model="column.units">
+          <option val="auto">auto</option>
+          <option val="%">%</option>
+          <option val="em">em</option>
+          <option val="rem">rem</option>
+          <option val="fr">fr</option>
+          <option val="px">px</option>
+          <option val="vw">vw</option>
+        </select>
+        <button class="input__button input__button--remove" v-if='columns.length > 1' @click="removeColumn(column)">X</button>
+      </div>
+      <button class="input__button input__button--add" @click="addColumn">Add Column</button>Remove Column</button>
     </div>
 
     <div class="css-output">
@@ -66,10 +93,15 @@ export default {
 }
 .input__button--add{
   background-color: lightgreen;
-
+  margin-top:0.25rem;
 }
 .input__button--remove{
   background-color: #F15A7E;
+  display: inline;
+  padding: 0.25rem;
+}
+.input__input--size{
+  width: 3rem;
 }
 .button--clipboard{
   position: absolute;
