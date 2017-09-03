@@ -1,4 +1,4 @@
-export const isFree = (layout, position) => {
+export const areaAt = (layout, position) => {
   for (let i = 0; i < layout.length; i++) {
     if (
       layout[i].x < position.x + position.w &&
@@ -6,21 +6,21 @@ export const isFree = (layout, position) => {
       layout[i].y < position.y + position.h &&
       layout[i].y + layout[i].h > position.y
     ) {
-      return false
+      return layout[i]
     }
   }
-  return true
+  return false
 }
 
 export const moveToFreePlace = (layout, item, maxX, maxY) => {
   var newItem = cloneItem(item)
 
-  while (!isFree(layout, newItem)) {
+  while (areaAt(layout, newItem)) {
     newItem.y = newItem.y + 1
     if (newItem.y > maxY) {
       newItem.y = 0
     }
-    if (!isFree(layout, newItem)) {
+    if (areaAt(layout, newItem)) {
       newItem.x = newItem.x + 1
       if (newItem.x > maxX) {
         newItem.x = 0

@@ -38,7 +38,7 @@ export const gridTemplateAreas = state => {
         state.columns
           .map((col, cIndex) => {
             let areas = state.dragAreas || state.areas
-            let area = areas.find(a => a.y === rIndex && a.x === cIndex)
+            let area = utils.areaAt(areas, { x: cIndex, y: rIndex, w: 1, h: 1 })
             return area ? area.label : '.'
           })
           .join(' ') +
