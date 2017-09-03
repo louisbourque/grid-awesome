@@ -1,18 +1,26 @@
 <template>
   <div :class="classes" :style="style">
-    <span class="text">{{item.label}}</span>
+    <input v-if="renaming" type="text" v-model="renamingLabel" v-on:blur="handleRename" v-on:keypress.enter="handleRename" class="input--rename" v-focusoninsert>
+    <span class="text" ref="label">{{item.label}}</span>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'grid-item',
   props: ['item'],
   data() {
     return {
+      renaming: false,
+      renamingLabel: '',
     }
   },
   computed: {
+    ...mapGetters([
+      'areas',
+    ]),
     style() {
       return this.$store.getters.itemStyle(this.item)
     },
@@ -29,9 +37,37 @@ export default {
       return { x: 0, y: 0 }
     }
   },
+  directives: {
+    focusoninsert: {
+      inserted: function(el) {
+        el.focus()
+      }
+    },
+  },
+  methods: {
+    handleRename: function() {
+      if (!this.renaming || !this.renamingLabel || this.areas.find(a => a.label === this.renamingLabel)) {
+        this.renamingLabel = ''
+        this.renaming = false
+        return
+      }
+      this.item.label = this.renamingLabel
+      this.renamingLabel = ''
+      this.renaming = false
+    },
+  },
   mounted() {
-    this.$el.addEventListener('mousedown', evt => {
+    this.$refs.label.addEventListener('mousedown', evt => {
       if (evt.button !== 0) {
+        return
+      }
+      this.renaming = true
+      this.renamingLabel = this.item.label
+      evt.preventDefault()
+      evt.stopPropagation()
+    })
+    this.$el.addEventListener('mousedown', evt => {
+      if (evt.button !== 0 || evt.path[0].localName === 'input') {
         return
       }
       console.log(evt)
@@ -80,6 +116,7 @@ export default {
 .grid-area {
     z-index: 1;
     box-sizing: border-box;
+    position: relative;
 }
 
 .grid-area.dragging {
@@ -88,5 +125,10 @@ export default {
 
 .grid-area:not(.dragging) {
     transition: top ease-out 0.1s, left ease-out 0.1s, width ease-out 0.1s, height ease-out 0.1s;
+}
+.input--rename{
+  width: 100%;
+  min-width: 5rem;
+  box-sizing: border-box;
 }
 </style>
