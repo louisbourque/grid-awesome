@@ -7,6 +7,18 @@ export const mutation = (state, value) => {
   state.val = value
 }
 
+export const setAreas = (state, value) => {
+  state.areas = value
+}
+
+export const setDragAreas = (state, value) => {
+  state.dragAreas = value
+}
+
+export const addDragArea = (state, value) => {
+  state.dragAreas.push(value)
+}
+
 export const addArea = (state, value) => {
   let index = state.areas.length + 1
   while (state.areas.find(a => a.id === index)) {
@@ -15,9 +27,22 @@ export const addArea = (state, value) => {
   while (state.areas.find(a => a.label === 'area' + index)) {
     index++
   }
-  let item = { x: 0, y: 0, w: 2, h: 2, label: 'area' + index, id: index }
+  let item = { x: 0, y: 0, w: 1, h: 1, label: 'area' + index, id: index }
   state.areas.push(item)
 }
+
+export const removeArea = (state, area) => {
+  if (area) {
+    let existingAreaIndex = state.areas.findIndex(a => a.id === area.id)
+    console.log(existingAreaIndex)
+    if (existingAreaIndex >= 0) {
+      state.areas.splice(existingAreaIndex, 1)
+    }
+  } else {
+    state.areas.pop()
+  }
+}
+
 export const addRow = state => {
   state.rows.push(Object.assign({}, state.rows[state.rows.length - 1]))
 }

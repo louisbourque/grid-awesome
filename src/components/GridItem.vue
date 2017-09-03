@@ -1,11 +1,10 @@
 <template>
-  <div :style="style">
+  <div :class="classes" :style="style">
     <span class="text">{{item.label}}</span>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'grid-item',
   props: ['item'],
@@ -17,6 +16,77 @@ export default {
     style() {
       return this.$store.getters.itemStyle(this.item)
     },
+    classes() {
+      return {
+        'grid-area': true,
+        'dragging': this.item.dragging,
+      }
+    },
+    gridOrigin: function() {
+      if (this.$parent.$refs && this.$parent.$refs.gridContainer) {
+        return { x: this.$parent.$refs.gridContainer.offsetLeft, y: this.$parent.$refs.gridContainer.offsetTop }
+      }
+      return { x: 0, y: 0 }
+    }
+  },
+  mounted() {
+    this.$el.addEventListener('mousedown', evt => {
+      if (evt.button !== 0) {
+        return
+      }
+      console.log(evt)
+      evt.preventDefault()
+      let offset = {
+        x: evt.pageX - this.gridOrigin.x,
+        y: evt.pageY - this.gridOrigin.y
+      }
+      let targetDimensions = {
+        x: evt.path[0].clientWidth,
+        y: evt.path[0].clientHeight
+      }
+      this.$emit('dragStart', {item: this.item, offset, targetDimensions})
+      console.log(this)
+      let mouseX = evt.clientX
+      let mouseY = evt.clientY
+
+      const handleMouseUp = evt => {
+        window.removeEventListener('mouseup', handleMouseUp, true)
+        window.removeEventListener('mousemove', handleMouseMove, true)
+
+        var offset = {
+          x: evt.clientX - mouseX,
+          y: evt.clientY - mouseY,
+        }
+        this.$emit('dragEnd', { offset })
+      }
+
+      const handleMouseMove = evt => {
+        let offset = {
+          x: evt.pageX - this.gridOrigin.x,
+          y: evt.pageY - this.gridOrigin.y
+        }
+        this.$emit('dragUpdate', { offset })
+      }
+
+      window.addEventListener('mouseup', handleMouseUp, true)
+      window.addEventListener('mousemove', handleMouseMove, true)
+    })
   },
 }
 </script>
+
+
+<style>
+.grid-area {
+    z-index: 1;
+    box-sizing: border-box;
+}
+
+.grid-area.dragging {
+    opacity: 0.7;
+}
+
+.grid-area:not(.dragging) {
+    transition: top ease-out 0.1s, left ease-out 0.1s, width ease-out 0.1s, height ease-out 0.1s;
+}
+</style>

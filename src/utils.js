@@ -1,3 +1,45 @@
+export const isFree = (layout, position) => {
+  for (let i = 0; i < layout.length; i++) {
+    if (
+      layout[i].x < position.x + position.w &&
+      layout[i].x + layout[i].w > position.x &&
+      layout[i].y < position.y + position.h &&
+      layout[i].y + layout[i].h > position.y
+    ) {
+      return false
+    }
+  }
+  return true
+}
+
+export const moveToFreePlace = (layout, item, maxX, maxY) => {
+  var newItem = cloneItem(item)
+
+  while (!isFree(layout, newItem)) {
+    newItem.y = newItem.y + 1
+    if (newItem.y > maxY) {
+      newItem.y = 0
+    }
+    if (!isFree(layout, newItem)) {
+      newItem.x = newItem.x + 1
+      if (newItem.x > maxX) {
+        newItem.x = 0
+      }
+    }
+  }
+  return newItem
+}
+
+export const cloneItem = item => {
+  return Object.assign({}, item)
+}
+
+export const cloneLayout = layout => {
+  return layout.map(item => {
+    return cloneItem(item)
+  })
+}
+
 const reverseString = string => string.split('').reverse().join('')
 
 export const stringToRGBA = string => {

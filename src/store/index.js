@@ -14,6 +14,7 @@ const state = {
     { x: 0, y: 1, w: 1, h: 1, label: 'area2', id: 1 },
     { x: 1, y: 1, w: 1, h: 1, label: 'area3', id: 2 },
   ],
+  dragAreas: null,
   columns: [
     {
       size: 10,

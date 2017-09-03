@@ -4,6 +4,9 @@ import * as utils from '../utils'
 export const areas = state => {
   return state.areas
 }
+export const dragAreas = state => {
+  return state.dragAreas
+}
 export const rows = state => {
   return state.rows
 }
@@ -34,14 +37,15 @@ export const gridTemplateAreas = state => {
         '"' +
         state.columns
           .map((col, cIndex) => {
-            let area = state.areas.find(a => a.x === rIndex && a.y === cIndex)
-            return area ? area.label : 'empty'
+            let areas = state.dragAreas || state.areas
+            let area = areas.find(a => a.y === rIndex && a.x === cIndex)
+            return area ? area.label : '.'
           })
           .join(' ') +
         '"'
       )
     })
-    .join(' ')
+    .join('\n')
 }
 
 export const gridStyle = state => {
@@ -72,6 +76,16 @@ export const gridStyle = state => {
 }
 
 export const itemStyle = state => item => {
+  if (item.id === 'placeholder') {
+    return {
+      backgroundColor: 'rgba(0,0,0,0.5)',
+      position: 'absolute',
+      top: item.y + 'px',
+      left: item.x + 'px',
+      height: item.h,
+      width: item.w,
+    }
+  }
   return {
     backgroundColor: utils.stringToRGBA(item.label),
     gridArea: item.label,
@@ -108,6 +122,7 @@ export const css = state => {
 }
 
 ${state.areas
+    .sort((a, b) => a.label > b.label)
     .map(a => '.' + a.label + '{\n  grid-area: ' + a.label + ';\n}')
     .join('\n')}
   

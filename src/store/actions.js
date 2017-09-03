@@ -7,8 +7,25 @@ export const action = ({ commit, state }, payload) => {
   }
 }
 
-export const addArea = ({ commit, state }) => {
-  commit('addArea')
+export const setAreas = ({ commit, state }, payload) => {
+  commit('setAreas', payload)
+}
+
+export const setDragAreas = ({ commit, state }, payload) => {
+  commit('setDragAreas', payload)
+}
+
+export const addDragArea = ({ commit, state }, payload) => {
+  commit('addDragArea', payload)
+}
+
+export const addArea = ({ commit, state }, payload) => {
+  commit('addArea', payload)
+}
+
+export const removeArea = ({ commit, state }, payload) => {
+  console.log('removeArea', payload)
+  commit('removeArea', payload)
 }
 
 export const addRow = ({ commit, state }) => {
