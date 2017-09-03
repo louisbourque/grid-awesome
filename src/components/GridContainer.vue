@@ -14,7 +14,6 @@
         >
         </grid-item>
       </template>
-        <div style="position:absolute;height:400px;width:400px;top:0;right:0">Placeholder: {{placeholder}}<br>Dragging: {{dragging}}<br>Draging Area: {{dragging.item}}<br> Areas: {{areas}}<br> DragAreas: {{this.dragAreas}}</div>
         <grid-item v-if="dragging.item"
                  :item="placeholder"
                  :key="'placeholder'"
