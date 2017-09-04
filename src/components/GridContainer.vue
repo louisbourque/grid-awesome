@@ -86,8 +86,8 @@ export default {
         this.$set(item, 'dragging', true)
         this.placeholder.label = ''
         this.placeholder.id = 'placeholder'
-        this.placeholder.w = this.columns[item.x] ? this.columns[item.x].size + this.columns[item.x].units : '3em'
-        this.placeholder.h = this.columns[item.y] ? this.rows[item.y].size + this.rows[item.y].units : '3em'
+        this.placeholder.w = targetDimensions.x + 'px'
+        this.placeholder.h = targetDimensions.y + 'px'
         this.placeholder.xCorrection = targetDimensions.x / 2
         this.placeholder.yCorrection = targetDimensions.y / 2
         this.placeholder.x = offset.x - this.placeholder.xCorrection
