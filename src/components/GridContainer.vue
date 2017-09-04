@@ -47,6 +47,13 @@ export default {
           y: 0,
         },
       },
+      resizing: {
+        item: null,
+        offset: {
+          x: 0,
+          y: 0,
+        },
+      },
     }
   },
   computed: {
@@ -68,6 +75,7 @@ export default {
     this.$children.forEach(box => {
       var initialLayout
       var isDragging = false
+      var isResizing = false
 
       box.$on('dragStart', ({item, offset, targetDimensions}) => {
         isDragging = true
@@ -160,6 +168,87 @@ export default {
         this.dragging.offset.y = 0
         this.setDragAreas(null)
         isDragging = false
+      })
+
+      box.$on('resizeStart', ({item, offset, targetDimensions}) => {
+        isResizing = true
+
+        this.resizing.item = item
+        this.$set(item, 'resizing', true)
+        this.resizing.offsetStart = offset
+
+        initialLayout = utils.cloneLayout(this.areas)
+      })
+
+      box.$on('resizeUpdate', evt => {
+        if (!isResizing) {
+          return
+        }
+        let previousOffset = this.resizing.offset || { x: 0, y: 0 }
+        this.resizing.offset = evt.offset
+
+        this.setDragAreas([])
+        this.addDragArea(this.resizing.item)
+
+        let changingArea = document.querySelector('.resizing')
+        console.log('ca.offsethw(' + changingArea.offsetHeight + ',' + changingArea.offsetWidth + ')')
+        console.log('ca.offsettl(' + changingArea.offsetTop + ',' + changingArea.offsetLeft + ')')
+        console.log('offset(' + this.resizing.offset.x + ',' + this.resizing.offset.y + ')')
+        console.log('offsetStart(' + this.resizing.offsetStart.x + ',' + this.resizing.offsetStart.y + ')')
+
+        if (previousOffset.x < this.resizing.offset.x && this.resizing.offset.x + this.resizing.offsetStart.x > changingArea.offsetLeft + changingArea.offsetWidth) {
+          this.$set(this.resizing.item, 'w', this.resizing.item.w + 1)
+        }
+
+        if (previousOffset.x > this.resizing.offset.x && this.resizing.offset.x + this.resizing.offsetStart.x < changingArea.offsetLeft + changingArea.offsetWidth) {
+          this.$set(this.resizing.item, 'w', this.resizing.item.w - 1)
+        }
+
+        if (this.resizing.item.w < 1) {
+          this.resizing.item.w = 1
+        }
+        if (this.resizing.item.w >= this.resizing.item.x + this.columns.length) {
+          this.resizing.item.w = this.columns.length - 1
+        }
+
+        if (previousOffset.y < this.resizing.offset.y && this.resizing.offset.y + this.resizing.offsetStart.y > changingArea.offsetTop + changingArea.offsetHeight) {
+          this.$set(this.resizing.item, 'h', this.resizing.item.h + 1)
+        }
+
+        if (previousOffset.y > this.resizing.offset.y && this.resizing.offset.y + this.resizing.offsetStart.y < changingArea.offsetTop + changingArea.offsetHeight) {
+          this.$set(this.resizing.item, 'h', this.resizing.item.h - 1)
+        }
+
+        if (this.resizing.item.h < 1) {
+          this.resizing.item.h = 1
+        }
+        if (this.resizing.item.h >= this.rows.length) {
+          this.resizing.item.h = this.rows.length - 1
+        }
+
+        initialLayout.forEach(item => {
+          if (item.id === this.resizing.item.id) {
+            return
+          }
+          this.addDragArea(
+            utils.moveToFreePlace(this.dragAreas, item, this.columns.length - 1, this.rows.length - 1)
+          )
+        })
+      })
+
+      box.$on('resizeEnd', evt => {
+        if (!isResizing) {
+          return
+        }
+        if (this.dragAreas) {
+          this.setAreas(this.dragAreas)
+        }
+        this.$delete(this.resizing.item, 'resizing')
+        this.resizing.item = null
+        this.resizing.offset.x = 0
+        this.resizing.offset.y = 0
+        this.setDragAreas(null)
+        isResizing = false
       })
     })
   },

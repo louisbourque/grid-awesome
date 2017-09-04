@@ -2,6 +2,7 @@
   <div :class="classes" :style="style">
     <input v-if="renaming" type="text" v-model="renamingLabel" v-on:blur="handleRename" v-on:keypress.enter="handleRename" class="input--rename" v-focusoninsert>
     <span class="text" ref="label">{{item.label}}</span>
+    <div class="resize-handle" ref="resizeHandle"></div>
   </div>
 </template>
 
@@ -28,6 +29,7 @@ export default {
       return {
         'grid-area': true,
         'dragging': this.item.dragging,
+        'resizing': this.item.resizing
       }
     },
     gridOrigin: function() {
@@ -107,6 +109,47 @@ export default {
       window.addEventListener('mouseup', handleMouseUp, true)
       window.addEventListener('mousemove', handleMouseMove, true)
     })
+
+    this.$resizeHandle = this.$refs.resizeHandle
+    if (this.$resizeHandle) {
+      this.$resizeHandle.addEventListener('mousedown', evt => {
+        evt.preventDefault()
+        evt.stopPropagation()
+        let offset = {
+          x: evt.pageX - this.gridOrigin.x,
+          y: evt.pageY - this.gridOrigin.y
+        }
+        let targetDimensions = {
+          x: evt.path[0].clientWidth,
+          y: evt.path[0].clientHeight
+        }
+        this.$emit('resizeStart', { item: this.item, offset, targetDimensions })
+        let mouseX = evt.clientX
+        let mouseY = evt.clientY
+
+        const handleMouseUp = evt => {
+          window.removeEventListener('mouseup', handleMouseUp, true)
+          window.removeEventListener('mousemove', handleMouseMove, true)
+
+          var offset = {
+            x: evt.clientX - mouseX,
+            y: evt.clientY - mouseY,
+          }
+          this.$emit('resizeEnd', { offset })
+        }
+
+        const handleMouseMove = evt => {
+          var offset = {
+            x: evt.clientX - mouseX,
+            y: evt.clientY - mouseY,
+          }
+          this.$emit('resizeUpdate', { offset })
+        }
+
+        window.addEventListener('mouseup', handleMouseUp, true)
+        window.addEventListener('mousemove', handleMouseMove, true)
+      })
+    }
   },
 }
 </script>
@@ -119,12 +162,22 @@ export default {
     position: relative;
 }
 
-.grid-area.dragging {
+.grid-area.dragging,
+.grid-area.resizing {
     opacity: 0.7;
 }
 
-.grid-area:not(.dragging) {
+.grid-area:not(.dragging):not(.resizing) {
     transition: top ease-out 0.1s, left ease-out 0.1s, width ease-out 0.1s, height ease-out 0.1s;
+}
+
+.grid-area .resize-handle {
+    position: absolute;
+    right: -5px;
+    bottom: -5px;
+    width: 15px;
+    height: 15px;
+    cursor: se-resize;
 }
 .input--rename{
   width: 100%;
