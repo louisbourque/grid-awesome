@@ -69,7 +69,7 @@ export default {
       evt.stopPropagation()
     })
     this.$el.addEventListener('mousedown', evt => {
-      if (evt.button !== 0 || evt.path[0].localName === 'input') {
+      if (evt.button !== 0 || evt.target.localName === 'input') {
         return
       }
       console.log(evt)
@@ -79,8 +79,8 @@ export default {
         y: evt.pageY - this.gridOrigin.y
       }
       let targetDimensions = {
-        x: evt.path[0].clientWidth,
-        y: evt.path[0].clientHeight
+        x: evt.target.clientWidth,
+        y: evt.target.clientHeight
       }
       this.$emit('dragStart', {item: this.item, offset, targetDimensions})
       console.log(this)
@@ -120,8 +120,8 @@ export default {
           y: evt.pageY - this.gridOrigin.y
         }
         let targetDimensions = {
-          x: evt.path[0].clientWidth,
-          y: evt.path[0].clientHeight
+          x: evt.target.clientWidth,
+          y: evt.target.clientHeight
         }
         this.$emit('resizeStart', { item: this.item, offset, targetDimensions })
         let mouseX = evt.clientX
