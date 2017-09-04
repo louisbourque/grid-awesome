@@ -14,7 +14,7 @@ import Editor from '@/components/Editor'
 
 export default {
   name: 'app',
-  components: {AppHeader, Editor},
+  components: { AppHeader, Editor },
 }
 </script>
 

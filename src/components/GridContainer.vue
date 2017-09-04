@@ -28,7 +28,7 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'grid-container',
-  components: {GridItem},
+  components: { GridItem },
   data() {
     return {
       placeholder: {
@@ -63,12 +63,16 @@ export default {
       'gridSize',
       'rows',
       'columns',
-      'dragAreas'
+      'dragAreas',
     ]),
   },
   methods: {
     ...mapActions([
-      'addArea', 'removeArea', 'setAreas', 'setDragAreas', 'addDragArea'
+      'addArea',
+      'removeArea',
+      'setAreas',
+      'setDragAreas',
+      'addDragArea',
     ]),
   },
   mounted() {
@@ -77,7 +81,7 @@ export default {
       var isDragging = false
       var isResizing = false
 
-      box.$on('dragStart', ({item, offset, targetDimensions}) => {
+      box.$on('dragStart', ({ item, offset, targetDimensions }) => {
         isDragging = true
 
         // find box
@@ -103,15 +107,26 @@ export default {
         }
         this.dragging.offset = evt.offset
 
-        this.$set(this.placeholder, 'x', evt.offset.x - this.placeholder.xCorrection)
-        this.$set(this.placeholder, 'y', evt.offset.y - this.placeholder.yCorrection)
+        this.$set(
+          this.placeholder,
+          'x',
+          evt.offset.x - this.placeholder.xCorrection
+        )
+        this.$set(
+          this.placeholder,
+          'y',
+          evt.offset.y - this.placeholder.yCorrection
+        )
 
         this.setDragAreas([])
         this.addDragArea(this.dragging.item)
 
         let draggingArea = document.querySelector('.dragging')
 
-        if (this.dragging.offset.x > draggingArea.offsetLeft + draggingArea.offsetWidth) {
+        if (
+          this.dragging.offset.x >
+          draggingArea.offsetLeft + draggingArea.offsetWidth
+        ) {
           this.$set(this.dragging.item, 'x', this.dragging.item.x + 1)
         }
 
@@ -126,7 +141,10 @@ export default {
           this.dragging.item.x = this.columns.length - 1
         }
 
-        if (this.dragging.offset.y > draggingArea.offsetTop + draggingArea.offsetHeight) {
+        if (
+          this.dragging.offset.y >
+          draggingArea.offsetTop + draggingArea.offsetHeight
+        ) {
           this.$set(this.dragging.item, 'y', this.dragging.item.y + 1)
         }
 
@@ -146,7 +164,12 @@ export default {
             return
           }
           this.addDragArea(
-            utils.moveToFreePlace(this.dragAreas, item, this.columns.length - 1, this.rows.length - 1)
+            utils.moveToFreePlace(
+              this.dragAreas,
+              item,
+              this.columns.length - 1,
+              this.rows.length - 1
+            )
           )
         })
       })
@@ -167,7 +190,7 @@ export default {
         isDragging = false
       })
 
-      box.$on('resizeStart', ({item, offset, targetDimensions}) => {
+      box.$on('resizeStart', ({ item, offset, targetDimensions }) => {
         isResizing = true
 
         this.resizing.item = item
@@ -189,26 +212,45 @@ export default {
 
         let changingArea = document.querySelector('.resizing')
 
-        if (previousOffset.x < this.resizing.offset.x && this.resizing.offset.x + this.resizing.offsetStart.x > changingArea.offsetLeft + changingArea.offsetWidth) {
+        if (
+          previousOffset.x < this.resizing.offset.x &&
+          this.resizing.offset.x + this.resizing.offsetStart.x >
+            changingArea.offsetLeft + changingArea.offsetWidth
+        ) {
           this.$set(this.resizing.item, 'w', this.resizing.item.w + 1)
         }
 
-        if (previousOffset.x > this.resizing.offset.x && this.resizing.offset.x + this.resizing.offsetStart.x < changingArea.offsetLeft + changingArea.offsetWidth) {
+        if (
+          previousOffset.x > this.resizing.offset.x &&
+          this.resizing.offset.x + this.resizing.offsetStart.x <
+            changingArea.offsetLeft + changingArea.offsetWidth
+        ) {
           this.$set(this.resizing.item, 'w', this.resizing.item.w - 1)
         }
 
         if (this.resizing.item.w < 1) {
           this.resizing.item.w = 1
         }
-        if (this.resizing.item.w >= this.resizing.item.x + this.columns.length) {
+        if (
+          this.resizing.item.w >=
+          this.resizing.item.x + this.columns.length
+        ) {
           this.resizing.item.w = this.columns.length - 1
         }
 
-        if (previousOffset.y < this.resizing.offset.y && this.resizing.offset.y + this.resizing.offsetStart.y > changingArea.offsetTop + changingArea.offsetHeight) {
+        if (
+          previousOffset.y < this.resizing.offset.y &&
+          this.resizing.offset.y + this.resizing.offsetStart.y >
+            changingArea.offsetTop + changingArea.offsetHeight
+        ) {
           this.$set(this.resizing.item, 'h', this.resizing.item.h + 1)
         }
 
-        if (previousOffset.y > this.resizing.offset.y && this.resizing.offset.y + this.resizing.offsetStart.y < changingArea.offsetTop + changingArea.offsetHeight) {
+        if (
+          previousOffset.y > this.resizing.offset.y &&
+          this.resizing.offset.y + this.resizing.offsetStart.y <
+            changingArea.offsetTop + changingArea.offsetHeight
+        ) {
           this.$set(this.resizing.item, 'h', this.resizing.item.h - 1)
         }
 
@@ -224,7 +266,12 @@ export default {
             return
           }
           this.addDragArea(
-            utils.moveToFreePlace(this.dragAreas, item, this.columns.length - 1, this.rows.length - 1)
+            utils.moveToFreePlace(
+              this.dragAreas,
+              item,
+              this.columns.length - 1,
+              this.rows.length - 1
+            )
           )
         })
       })

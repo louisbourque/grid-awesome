@@ -90,23 +90,34 @@
 </template>
 
 <script>
-import {copyTextToClipboard} from '../utils'
+import { copyTextToClipboard } from '../utils'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'editor',
   computed: {
     ...mapGetters([
-      'areas', 'rows', 'columns', 'css', 'colGap', 'rowGap', 'justify', 'align'
+      'areas',
+      'rows',
+      'columns',
+      'css',
+      'colGap',
+      'rowGap',
+      'justify',
+      'align',
     ]),
   },
   methods: {
     ...mapActions([
-      'addArea', 'addRow', 'removeRow', 'addColumn', 'removeColumn'
+      'addArea',
+      'addRow',
+      'removeRow',
+      'addColumn',
+      'removeColumn',
     ]),
     copyTextToClipboard: function(text) {
       copyTextToClipboard(text)
-    }
+    },
   },
 }
 </script>

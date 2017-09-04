@@ -19,36 +19,41 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'areas',
-    ]),
+    ...mapGetters(['areas']),
     style() {
       return this.$store.getters.itemStyle(this.item)
     },
     classes() {
       return {
         'grid-area': true,
-        'dragging': this.item.dragging,
-        'resizing': this.item.resizing
+        dragging: this.item.dragging,
+        resizing: this.item.resizing,
       }
     },
     gridOrigin: function() {
       if (this.$parent.$refs && this.$parent.$refs.gridContainer) {
-        return { x: this.$parent.$refs.gridContainer.offsetLeft, y: this.$parent.$refs.gridContainer.offsetTop }
+        return {
+          x: this.$parent.$refs.gridContainer.offsetLeft,
+          y: this.$parent.$refs.gridContainer.offsetTop,
+        }
       }
       return { x: 0, y: 0 }
-    }
+    },
   },
   directives: {
     focusoninsert: {
       inserted: function(el) {
         el.focus()
-      }
+      },
     },
   },
   methods: {
     handleRename: function() {
-      if (!this.renaming || !this.renamingLabel || this.areas.find(a => a.label === this.renamingLabel)) {
+      if (
+        !this.renaming ||
+        !this.renamingLabel ||
+        this.areas.find(a => a.label === this.renamingLabel)
+      ) {
         this.renamingLabel = ''
         this.renaming = false
         return
@@ -75,13 +80,13 @@ export default {
       evt.preventDefault()
       let offset = {
         x: evt.pageX - this.gridOrigin.x,
-        y: evt.pageY - this.gridOrigin.y
+        y: evt.pageY - this.gridOrigin.y,
       }
       let targetDimensions = {
         x: evt.target.clientWidth,
-        y: evt.target.clientHeight
+        y: evt.target.clientHeight,
       }
-      this.$emit('dragStart', {item: this.item, offset, targetDimensions})
+      this.$emit('dragStart', { item: this.item, offset, targetDimensions })
       let mouseX = evt.clientX
       let mouseY = evt.clientY
 
@@ -99,7 +104,7 @@ export default {
       const handleMouseMove = evt => {
         let offset = {
           x: evt.pageX - this.gridOrigin.x,
-          y: evt.pageY - this.gridOrigin.y
+          y: evt.pageY - this.gridOrigin.y,
         }
         this.$emit('dragUpdate', { offset })
       }
@@ -115,11 +120,11 @@ export default {
         evt.stopPropagation()
         let offset = {
           x: evt.pageX - this.gridOrigin.x,
-          y: evt.pageY - this.gridOrigin.y
+          y: evt.pageY - this.gridOrigin.y,
         }
         let targetDimensions = {
           x: evt.target.clientWidth,
-          y: evt.target.clientHeight
+          y: evt.target.clientHeight,
         }
         this.$emit('resizeStart', { item: this.item, offset, targetDimensions })
         let mouseX = evt.clientX
