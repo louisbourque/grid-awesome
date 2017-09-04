@@ -72,7 +72,6 @@ export default {
       if (evt.button !== 0 || evt.target.localName === 'input') {
         return
       }
-      console.log(evt)
       evt.preventDefault()
       let offset = {
         x: evt.pageX - this.gridOrigin.x,
@@ -83,7 +82,6 @@ export default {
         y: evt.target.clientHeight
       }
       this.$emit('dragStart', {item: this.item, offset, targetDimensions})
-      console.log(this)
       let mouseX = evt.clientX
       let mouseY = evt.clientY
 

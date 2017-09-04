@@ -111,9 +111,6 @@ export default {
 
         let draggingArea = document.querySelector('.dragging')
 
-        console.log('(' + draggingArea.offsetLeft + ',' + draggingArea.offsetTop + ')')
-        console.log('(' + this.dragging.offset.x + ',' + this.dragging.offset.y + ')')
-
         if (this.dragging.offset.x > draggingArea.offsetLeft + draggingArea.offsetWidth) {
           this.$set(this.dragging.item, 'x', this.dragging.item.x + 1)
         }
@@ -191,10 +188,6 @@ export default {
         this.addDragArea(this.resizing.item)
 
         let changingArea = document.querySelector('.resizing')
-        console.log('ca.offsethw(' + changingArea.offsetHeight + ',' + changingArea.offsetWidth + ')')
-        console.log('ca.offsettl(' + changingArea.offsetTop + ',' + changingArea.offsetLeft + ')')
-        console.log('offset(' + this.resizing.offset.x + ',' + this.resizing.offset.y + ')')
-        console.log('offsetStart(' + this.resizing.offsetStart.x + ',' + this.resizing.offsetStart.y + ')')
 
         if (previousOffset.x < this.resizing.offset.x && this.resizing.offset.x + this.resizing.offsetStart.x > changingArea.offsetLeft + changingArea.offsetWidth) {
           this.$set(this.resizing.item, 'w', this.resizing.item.w + 1)
