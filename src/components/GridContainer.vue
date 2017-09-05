@@ -295,7 +295,9 @@ export default {
 .grid-container {
   position: relative;
   transition: min-width ease-out 0.1s, min-height ease-out 0.1s;
-  margin: 0.5rem;
+  padding: 0.5rem;
+  height: calc(100vh - 56px);
+  box-sizing: border-box;
 }
 
 .grid-container .grid-area.placeholder {
