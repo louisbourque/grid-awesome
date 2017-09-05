@@ -47,7 +47,11 @@ export const cloneLayout = layout => {
   })
 }
 
-const reverseString = string => string.split('').reverse().join('')
+const reverseString = string =>
+  string
+    .split('')
+    .reverse()
+    .join('')
 
 export const stringToRGBA = string => {
   let hex = ('000000' +
