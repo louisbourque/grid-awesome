@@ -190,7 +190,7 @@ export default {
         isDragging = false
       })
 
-      box.$on('resizeStart', ({ item, offset, targetDimensions }) => {
+      box.$on('resizeStart', ({ item, offset }) => {
         isResizing = true
 
         this.resizing.item = item

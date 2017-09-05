@@ -122,11 +122,7 @@ export default {
           x: evt.pageX - this.gridOrigin.x,
           y: evt.pageY - this.gridOrigin.y,
         }
-        let targetDimensions = {
-          x: evt.target.clientWidth,
-          y: evt.target.clientHeight,
-        }
-        this.$emit('resizeStart', { item: this.item, offset, targetDimensions })
+        this.$emit('resizeStart', { item: this.item, offset })
         let mouseX = evt.clientX
         let mouseY = evt.clientY
 
