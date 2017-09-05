@@ -231,11 +231,8 @@ export default {
         if (this.resizing.item.w < 1) {
           this.resizing.item.w = 1
         }
-        if (
-          this.resizing.item.w >=
-          this.resizing.item.x + this.columns.length
-        ) {
-          this.resizing.item.w = this.columns.length - 1
+        if (this.resizing.item.w + this.resizing.item.x > this.columns.length) {
+          this.resizing.item.w = this.columns.length - this.resizing.item.x
         }
 
         if (
@@ -257,8 +254,8 @@ export default {
         if (this.resizing.item.h < 1) {
           this.resizing.item.h = 1
         }
-        if (this.resizing.item.h >= this.rows.length) {
-          this.resizing.item.h = this.rows.length - 1
+        if (this.resizing.item.h + this.resizing.item.y > this.rows.length) {
+          this.resizing.item.h = this.rows.length - this.resizing.item.y
         }
 
         initialLayout.forEach(item => {
