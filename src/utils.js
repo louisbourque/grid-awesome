@@ -14,11 +14,18 @@ export const areaAt = (layout, position) => {
 
 export const moveToFreePlace = (layout, item, maxX, maxY) => {
   var newItem = cloneItem(item)
+  let hasResetY = false
 
   while (areaAt(layout, newItem)) {
     newItem.y = newItem.y + 1
     if (newItem.y > maxY) {
+      if (hasResetY) {
+        newItem.y = 0
+        newItem.x = 0
+        return newItem
+      }
       newItem.y = 0
+      hasResetY = true
     }
     if (areaAt(layout, newItem)) {
       newItem.x = newItem.x + 1
