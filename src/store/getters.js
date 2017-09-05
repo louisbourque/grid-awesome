@@ -80,10 +80,11 @@ export const itemStyle = state => item => {
     return {
       backgroundColor: 'rgba(0,0,0,0.5)',
       position: 'absolute',
-      top: item.y + 'px',
-      left: item.x + 'px',
+      top: 0,
+      left: 0,
       height: item.h,
       width: item.w,
+      transform: 'translate(' + item.x + 'px,' + item.y + 'px)',
     }
   }
   return {
