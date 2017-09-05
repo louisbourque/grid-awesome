@@ -46,7 +46,7 @@ header {
 .center{
   text-align: center;
 }
-@supports (display: grid) {
+@supports (grid-area: auto) {
   @media screen and (min-width: 800px) {
     
     .site {

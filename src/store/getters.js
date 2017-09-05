@@ -34,7 +34,7 @@ export const gridTemplateAreas = state => {
   return state.rows
     .map((row, rIndex) => {
       return (
-        '"' +
+        '    "' +
         state.columns
           .map((col, cIndex) => {
             let areas = state.dragAreas || state.areas
@@ -94,37 +94,39 @@ export const itemStyle = state => item => {
 
 export const css = state => {
   return `
-.grid-container{
-  display: grid;
-  grid-template-columns: ${state.columns
-    .reduce(
-      (acc, val) =>
-        acc + (val.units === 'auto' ? '' : val.size) + val.units + ' ',
-      ''
-    )
-    .trim()};
-  grid-template-rows: ${state.rows
-    .reduce(
-      (acc, val) =>
-        acc + (val.units === 'auto' ? '' : val.size) + val.units + ' ',
-      ''
-    )
-    .trim()};
-  ${state.colGap.size && state.colGap.units
-    ? 'grid-column-gap: ' + state.colGap.size + state.colGap.units + ';'
-    : ''}
-  ${state.rowGap.size && state.rowGap.units
-    ? 'grid-row-gap: ' + state.rowGap.size + state.rowGap.units + ';'
-    : ''}
-  ${state.justify.value ? 'justify-items: ' + state.justify.value + ';' : ''}
-  ${state.align.value ? 'align-items: ' + state.align.value + ';' : ''}
-  grid-temlate-areas: ${gridTemplateAreas(state)};
-}
-
+@supports (grid-area: auto) {
+  .grid-container{
+    display: grid;
+    grid-template-columns: ${state.columns
+      .reduce(
+        (acc, val) =>
+          acc + (val.units === 'auto' ? '' : val.size) + val.units + ' ',
+        ''
+      )
+      .trim()};
+    grid-template-rows: ${state.rows
+      .reduce(
+        (acc, val) =>
+          acc + (val.units === 'auto' ? '' : val.size) + val.units + ' ',
+        ''
+      )
+      .trim()};
+    ${state.colGap.size && state.colGap.units
+      ? 'grid-column-gap: ' + state.colGap.size + state.colGap.units + ';'
+      : ''}
+    ${state.rowGap.size && state.rowGap.units
+      ? 'grid-row-gap: ' + state.rowGap.size + state.rowGap.units + ';'
+      : ''}
+    ${state.justify.value ? 'justify-items: ' + state.justify.value + ';' : ''}
+    ${state.align.value ? 'align-items: ' + state.align.value + ';' : ''}
+    grid-temlate-areas:
+${gridTemplateAreas(state)};
+  }
+    
 ${state.areas
     .sort((a, b) => a.label > b.label)
-    .map(a => '.' + a.label + '{\n  grid-area: ' + a.label + ';\n}')
+    .map(a => '  .' + a.label + ' {\n    grid-area: ' + a.label + ';\n  }')
     .join('\n')}
-  
-  `.replace(/ {2}\n/g, '')
+    
+}`.replace(/ {4}\n/g, '')
 }
