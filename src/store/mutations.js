@@ -3,6 +3,8 @@
 // first argument, followed by additional payload arguments.
 // mutations must be synchronous and can be recorded by plugins
 // for debugging purposes.
+import * as utils from '../utils'
+
 export const mutation = (state, value) => {
   state.val = value
 }
@@ -27,8 +29,15 @@ export const addArea = (state, value) => {
   while (state.areas.find(a => a.label === 'area' + index)) {
     index++
   }
-  let item = { x: 0, y: 0, w: 1, h: 1, label: 'area' + index, id: index }
-  state.areas.push(item)
+
+  state.areas.push(
+    utils.moveToFreePlace(
+      state.areas,
+      { x: 0, y: 0, w: 1, h: 1, label: 'area' + index, id: index },
+      state.columns.length - 1,
+      state.rows.length - 1
+    )
+  )
 }
 
 export const removeArea = (state, area) => {
