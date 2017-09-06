@@ -2,12 +2,13 @@
   <div :class="classes" :style="style">
     <input v-if="renaming" type="text" v-model="renamingLabel" v-on:blur="handleRename" v-on:keypress.enter="handleRename" class="input--rename" v-focusoninsert>
     <span class="text" ref="label">{{item.label}}</span>
+    <span class="remove-button" @click="removeArea(item)">x</span>
     <div class="resize-handle" ref="resizeHandle"></div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'grid-item',
@@ -48,6 +49,9 @@ export default {
     },
   },
   methods: {
+    ...mapActions([
+      'removeArea',
+    ]),
     handleRename: function() {
       if (
         !this.renaming ||
@@ -74,7 +78,7 @@ export default {
       evt.stopPropagation()
     })
     this.$el.addEventListener('mousedown', evt => {
-      if (evt.button !== 0 || evt.target.localName === 'input') {
+      if (evt.button !== 0 || evt.target.localName === 'input' || evt.target.localName === 'span') {
         return
       }
       evt.preventDefault()
@@ -178,6 +182,18 @@ export default {
     height: 15px;
     cursor: se-resize;
 }
+
+.remove-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 15px;
+  height: 15px;
+  font-weight: bold;
+  color: #f33;
+  cursor: pointer;
+}
+
 .input--rename{
   width: 100%;
   min-width: 5rem;
