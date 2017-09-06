@@ -75,8 +75,6 @@ export default {
   },
   methods: {
     ...mapActions([
-      'addArea',
-      'removeArea',
       'setAreas',
       'setDragAreas',
       'addDragArea',
