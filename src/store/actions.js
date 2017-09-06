@@ -24,7 +24,6 @@ export const addArea = ({ commit, state }, payload) => {
 }
 
 export const removeArea = ({ commit, state }, payload) => {
-  console.log('removeArea', payload)
   commit('removeArea', payload)
 }
 
