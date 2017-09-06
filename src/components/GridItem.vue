@@ -49,9 +49,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions([
-      'removeArea',
-    ]),
+    ...mapActions(['removeArea']),
     handleRename: function() {
       if (
         !this.renaming ||
@@ -78,7 +76,11 @@ export default {
       evt.stopPropagation()
     })
     this.$el.addEventListener('mousedown', evt => {
-      if (evt.button !== 0 || evt.target.localName === 'input' || evt.target.localName === 'span') {
+      if (
+        evt.button !== 0 ||
+        evt.target.localName === 'input' ||
+        evt.target.localName === 'span'
+      ) {
         return
       }
       evt.preventDefault()
