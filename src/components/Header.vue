@@ -1,6 +1,7 @@
 <template>
 	<header class="header">
-      <router-link class="header__a" to="/">Home</router-link>
+      <router-link class="header__a" to="/">Grid-Awesome</router-link>
+      <router-link class="header__a right" to="/about">About</router-link>
    </header>
 </template>
 
