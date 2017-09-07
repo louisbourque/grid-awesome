@@ -120,7 +120,7 @@ export const css = state => {
       : ''}
     ${state.justify.value ? 'justify-items: ' + state.justify.value + ';' : ''}
     ${state.align.value ? 'align-items: ' + state.align.value + ';' : ''}
-    grid-temlate-areas:
+    grid-template-areas:
 ${gridTemplateAreas(state)};
   }
     
