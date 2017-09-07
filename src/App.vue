@@ -42,15 +42,13 @@ header {
   text-align: center;
 }
 @supports (grid-area: auto) {
-  @media screen {
     .site {
       display: grid;
-      grid-template-rows: auto auto auto;
+      grid-template-rows: auto auto;
       grid-template-columns: auto;
       grid-template-areas:
         "header"
-        "content"
-        "footer";
+        "content";
     }
     .content {
       display: grid;
@@ -75,19 +73,16 @@ header {
     .footer {
       grid-area: footer;
     }
-  }
-}
-@supports (grid-area: auto) {
+
   @media screen and (min-width: 768px) {
     
     .site {
       display: grid;
-      grid-template-rows: auto auto auto;
+      grid-template-rows: auto auto;
       grid-template-columns: auto;
       grid-template-areas:
         "header"
-        "content"
-        "footer";
+        "content";
     }
     
   .content {
