@@ -1,16 +1,18 @@
 <template>
-  <div class="hello center">
+  <div class="hello content">
+    <editor></editor>
     <grid-container></grid-container>
   </div>
 </template>
 
 <script>
+import Editor from '@/components/Editor'
 import GridContainer from './GridContainer'
 import GridItem from './GridItem'
 
 export default {
   name: 'hello',
-  components: { GridContainer, GridItem },
+  components: { Editor, GridContainer, GridItem },
 }
 </script>
 
