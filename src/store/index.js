@@ -10,38 +10,47 @@ Vue.use(Vuex)
 // each Vuex instance is just a single state tree.
 const state = {
   areas: [
-    { x: 0, y: 0, w: 2, h: 1, label: 'area1', id: 0 },
+    { x: 0, y: 0, w: 2, h: 1, label: 'header', id: 0 },
     { x: 0, y: 1, w: 1, h: 1, label: 'area2', id: 1 },
-    { x: 1, y: 1, w: 1, h: 1, label: 'area3', id: 2 },
+    { x: 1, y: 2, w: 1, h: 1, label: 'area3', id: 2 },
+    { x: 2, y: 0, w: 1, h: 3, label: 'sidebar', id: 3 },
   ],
   dragAreas: null,
   columns: [
     {
-      size: 10,
-      units: 'em',
+      size: 3,
+      units: 'fr',
     },
     {
-      size: 10,
-      units: 'em',
+      size: 4,
+      units: 'fr',
+    },
+    {
+      size: 2,
+      units: 'fr',
     },
   ],
   rows: [
     {
       size: 10,
-      units: 'em',
+      units: 'rem',
     },
     {
-      size: 10,
-      units: 'em',
+      size: 15,
+      units: 'rem',
+    },
+    {
+      size: 20,
+      units: 'rem',
     },
   ],
   colGap: {
-    size: 0,
-    units: '',
+    size: 0.5,
+    units: 'rem',
   },
   rowGap: {
-    size: 0,
-    units: '',
+    size: 0.5,
+    units: 'rem',
   },
   justify: {
     value: '',
