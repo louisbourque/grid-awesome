@@ -112,10 +112,13 @@ export default {
         evt.offset.y - this.placeholder.yCorrection
       )
 
+      let draggingArea = document.querySelector('.dragging')
+      if (!draggingArea) {
+        return
+      }
+
       this.setDragAreas([])
       this.addDragArea(this.dragging.item)
-
-      let draggingArea = document.querySelector('.dragging')
 
       if (
         this.dragging.offset.x >
@@ -199,6 +202,9 @@ export default {
       this.addDragArea(this.resizing.item)
 
       let changingArea = document.querySelector('.resizing')
+      if (!changingArea) {
+        return
+      }
 
       if (
         previousOffset.x < this.resizing.offset.x &&
