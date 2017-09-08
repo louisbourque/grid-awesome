@@ -54,7 +54,8 @@ HTML:
 </pre>
 		</div>
 		<div class="footer">
-			<div>Powered by <a href="https://vuejs.org/"><img src="static/img/vue-logo.png"></a></div>
+      <div><a href="https://github.com/louisbourque/grid-awesome">View in GitHub</a></div>
+			<div class="div--margintop">Powered by <a href="https://vuejs.org/"><img src="static/img/vue-logo.png"></a></div>
 			<div class="div--margintop">Built by <a href="http://louisbourque.ca/">Louis Bourque</a>.</div>
 		</div>
   </div>
@@ -97,7 +98,7 @@ export default {
   .about{
     display: grid;
     grid-template-columns: auto;
-    grid-template-rows: auto 6rem;
+    grid-template-rows: auto 8rem;
     grid-row-gap: 1rem;
     grid-template-areas:
     "aboutcontent"
