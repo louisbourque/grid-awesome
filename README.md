@@ -1,4 +1,4 @@
-# agendo
+# Grid Awesome
 
 > A Vue.js project
 
