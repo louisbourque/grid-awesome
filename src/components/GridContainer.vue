@@ -3,14 +3,14 @@
       <template v-if="this.dragAreas">
         <grid-item v-for="item, index in dragAreas"
                  :item="item"
-                 :key="index"
+                 :key="item.label"
         >
         </grid-item>
       </template>
       <template v-else>
           <grid-item v-for="item, index in areas"
                  :item="item"
-                 :key="index"
+                 :key="item.label"
                  @dragStart="dragStart"
                  @dragUpdate="dragUpdate"
                  @dragEnd="dragEnd"
