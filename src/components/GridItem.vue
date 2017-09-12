@@ -60,7 +60,7 @@ export default {
         this.renaming = false
         return
       }
-      this.item.label = this.renamingLabel
+      this.item.label = this.renamingLabel.replace(/ /g, '-')
       this.renamingLabel = ''
       this.renaming = false
     },
