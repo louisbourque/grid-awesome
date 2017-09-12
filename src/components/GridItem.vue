@@ -3,7 +3,7 @@
     <input v-if="renaming" type="text" v-model="renamingLabel" v-on:blur="handleRename" v-on:keypress.enter="handleRename" class="input--rename" v-focusoninsert>
     <span class="text" ref="label">{{item.label}}</span>
     <span class="remove-button" @click="removeArea(item)">x</span>
-    <div class="resize-handle" ref="resizeHandle"></div>
+    <div class="resize-handle" ref="resizeHandle"><img class="img--resize_handle" src="static/img/resize.svg"></div>
   </div>
 </template>
 
@@ -200,5 +200,12 @@ export default {
   width: 100%;
   min-width: 5rem;
   box-sizing: border-box;
+}
+.img--resize_handle{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: -5px;
+  top: -5px;
 }
 </style>
