@@ -1,6 +1,8 @@
 # Grid Awesome
 
-> A Vue.js project
+> Use Grid-Awesome to generate boilerplate css for grid layouts using the css display: grid; property. 
+
+# [Demo](http://www.louisbourque.ca/grid-awesome/)
 
 # Getting Started
 
