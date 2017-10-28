@@ -2,6 +2,13 @@
 
 > A Vue.js project
 
+# Getting Started
+
+```
+git clone https://github.com/louisbourque/grid-awesome.git
+cd grid-awesome
+```
+
 ## Build Setup
 
 ``` bash
