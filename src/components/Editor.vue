@@ -4,6 +4,7 @@
       <div class="input">
         <p class="center">Grid Template Areas: {{areas.length}}</p>
         <button class="input__button input__button--add" @click="addArea">Add an area</button>
+        <p v-if="overflowAreas.length" class="error">{{overflowAreas.length}} area{{overflowAreas.length === 1 ? '' : 's'}} cannot fit in grid. Add a {{overflowAreas.filter(area => area.x < 0).length ? 'row or column' : overflowAreas.filter(area => area.x > columns.length -1).length ? 'column' : 'row'}}.</p>
       </div>
       <div class="input">
         <p class="center">Grid Template Columns: {{columns.length}}</p>
@@ -100,6 +101,7 @@ export default {
   computed: {
     ...mapGetters([
       'areas',
+      'overflowAreas',
       'rows',
       'columns',
       'css',
@@ -127,6 +129,9 @@ export default {
 .editor{
   display: flex;
   flex-direction: column;
+}
+.error{
+  color: red;
 }
 .css-output{
    white-space: pre-wrap;

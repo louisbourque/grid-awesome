@@ -14,6 +14,12 @@ export const areaAt = (layout, position) => {
 
 export const moveToFreePlace = (layout, item, maxX, maxY) => {
   var newItem = cloneItem(item)
+  if (newItem.x < 0 || newItem.x > maxX) {
+    newItem.x = 0
+  }
+  if (newItem.y < 0 || newItem.y > maxY) {
+    newItem.y = 0
+  }
   let startX = newItem.x
   let startY = newItem.y
 

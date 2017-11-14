@@ -30,6 +30,28 @@ export const gridSize = state => {
   return { w: state.columns.length, h: state.rows.length }
 }
 
+export const overflowAreas = state => {
+  return state.areas.filter(
+    area =>
+      area.x < 0 ||
+      area.y < 0 ||
+      area.x >= state.columns.length ||
+      area.y >= state.rows.length
+  )
+}
+
+export const validAreas = state => {
+  return state.areas.filter(
+    area =>
+      !(
+        area.x < 0 ||
+        area.y < 0 ||
+        area.x >= state.columns.length ||
+        area.y >= state.rows.length
+      )
+  )
+}
+
 export const gridTemplateAreas = state => {
   return state.rows
     .map((row, rIndex) => {
@@ -136,7 +158,7 @@ export const css = state => {
 ${gridTemplateAreas(state)};
   }
     
-${state.areas
+${validAreas(state)
     .sort((a, b) => a.label > b.label)
     .map(a => '  .' + a.label + ' {\n    grid-area: ' + a.label + ';\n  }')
     .join('\n')}

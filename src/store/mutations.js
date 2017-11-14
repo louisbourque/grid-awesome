@@ -54,6 +54,21 @@ export const removeArea = (state, area) => {
 
 export const addRow = state => {
   state.rows.push(Object.assign({}, state.rows[state.rows.length - 1]))
+  if (state.areas.filter(area => area.x < 0).length) {
+    let newAreas = state.areas.filter(area => area.x >= 0)
+
+    state.areas.filter(area => area.x < 0).forEach(area => {
+      newAreas.push(
+        utils.moveToFreePlace(
+          newAreas,
+          area,
+          state.columns.length - 1,
+          state.rows.length - 1
+        )
+      )
+    })
+    state.areas = newAreas
+  }
 }
 
 export const removeRow = (state, row) => {
@@ -69,6 +84,21 @@ export const removeRow = (state, row) => {
 
 export const addColumn = state => {
   state.columns.push(Object.assign({}, state.columns[state.columns.length - 1]))
+  if (state.areas.filter(area => area.x < 0).length) {
+    let newAreas = state.areas.filter(area => area.x >= 0)
+
+    state.areas.filter(area => area.x < 0).forEach(area => {
+      newAreas.push(
+        utils.moveToFreePlace(
+          newAreas,
+          area,
+          state.columns.length - 1,
+          state.rows.length - 1
+        )
+      )
+    })
+    state.areas = newAreas
+  }
 }
 
 export const removeColumn = (state, col) => {
