@@ -78,7 +78,8 @@ export const gridStyle = state => {
 export const itemStyle = state => item => {
   if (item.id === 'placeholder') {
     return {
-      backgroundColor: 'rgba(0,0,0,0.5)',
+      backgroundColor: 'rgba(0,0,0,0.2)',
+      border: '3px solid #333',
       position: 'absolute',
       top: 0,
       left: 0,
@@ -88,8 +89,15 @@ export const itemStyle = state => item => {
     }
   }
   return {
-    backgroundColor: utils.stringToRGBA(item.label),
+    border: '3px  solid ' + utils.stringToRGBA(item.label),
     gridArea: item.label,
+    display:
+      item.x < 0 ||
+      item.y < 0 ||
+      item.x >= state.columns.length ||
+      item.y >= state.rows.length
+        ? 'none'
+        : 'block',
   }
 }
 
