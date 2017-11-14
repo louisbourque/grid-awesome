@@ -120,12 +120,16 @@ export const css = state => {
         ''
       )
       .trim()};
-    ${state.colGap.size && state.colGap.units
-      ? 'grid-column-gap: ' + state.colGap.size + state.colGap.units + ';'
-      : ''}
-    ${state.rowGap.size && state.rowGap.units
-      ? 'grid-row-gap: ' + state.rowGap.size + state.rowGap.units + ';'
-      : ''}
+    ${
+      state.colGap.size && state.colGap.units
+        ? 'grid-column-gap: ' + state.colGap.size + state.colGap.units + ';'
+        : ''
+    }
+    ${
+      state.rowGap.size && state.rowGap.units
+        ? 'grid-row-gap: ' + state.rowGap.size + state.rowGap.units + ';'
+        : ''
+    }
     ${state.justify.value ? 'justify-items: ' + state.justify.value + ';' : ''}
     ${state.align.value ? 'align-items: ' + state.align.value + ';' : ''}
     grid-template-areas:

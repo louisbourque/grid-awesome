@@ -54,10 +54,10 @@ const reverseString = string =>
     .join('')
 
 export const stringToRGBA = string => {
-  let hex = ('000000' +
-    (parseInt(reverseString(string), 36) & 0xffffff)
-      .toString(16)
-      .toUpperCase()).slice(-6)
+  let hex = (
+    '000000' +
+    (parseInt(reverseString(string), 36) & 0xffffff).toString(16).toUpperCase()
+  ).slice(-6)
   return (
     'rgba(' +
     parseInt(hex.slice(0, 2), 16) +
